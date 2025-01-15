@@ -56,7 +56,7 @@ func parseActionReference(actionRef string) (owner, repo, ref string) {
 
 func processFileContent(ctx context.Context, client *github.Client, content string) (string, error) {
 	// Regular expression to find "uses: owner/repo@ref"
-	re := regexp.MustCompile(`(uses:\s*([^@]+)@([^#\s]+))`)
+	re := regexp.MustCompile(`(uses: ([^\.@]+)@([^#\s]+))`)
 
 	// Function to replace matches with updated SHA references and add comments
 	result := re.ReplaceAllStringFunc(content, func(match string) string {
