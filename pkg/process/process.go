@@ -48,7 +48,7 @@ func parseActionReference(actionRef string) (owner, repo, ref string) {
 		return "", "", ""
 	}
 	repoPath := strings.Split(parts[0], "/")
-	if len(repoPath) != 2 {
+	if len(repoPath) < 2 {
 		return "", "", ""
 	}
 	return repoPath[0], repoPath[1], parts[1]
@@ -79,7 +79,7 @@ func processFileContent(ctx context.Context, client *github.Client, content stri
 		}
 
 		// Add a comment indicating the replaced version at the end of the line
-		return fmt.Sprintf("uses: %s/%s@%s # %s", owner, repo, sha, version)
+		return fmt.Sprintf("uses: %s@%s # %s", repoPath, sha, version)
 	})
 
 	return result, nil
